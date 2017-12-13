@@ -5,21 +5,10 @@
     <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
 
+
+      <script src="index.js" type="text/javascript">  </script>
+
     <script type="text/javascript">
-      AFRAME.registerComponent('rainbow', {
-        init: function () {
-          this.hue = 0;
-          this.material = this.el.getOrCreateObject3D('mesh').material;
-          console.log(this.material );
-        },
-        schema: {
-          cyclespeed: {type: 'float', default: .001}
-        },
-        tick: function() {
-          this.hue += this.data.cyclespeed;
-          this.material.color.setHSL ( this.hue % 1, 1, .5 );
-        }
-      });
 
       AFRAME.registerComponent('skypreset', {
         init: function () {

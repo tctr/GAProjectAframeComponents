@@ -74,7 +74,7 @@ AFRAME.registerComponent('fullpreset', {
                        // voie lactee
                        { camfov:150, sky1radius:200, sky1color:'#ffffff', thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/voielactee360.jpg'},
                        // voie mosaic trees
-                       { camfov:120, sky1radius:200.5, sky1color:'#00ff00', thetaLength: 175, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/sequoiatrip2.png'}
+                       { camfov:120, sky1radius:200.5, sky1color:'#00ff00', thetaLength: 178, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/sequoiatrip2.png'}
 ];
 
     var ichoice = this.data.ichoice;;

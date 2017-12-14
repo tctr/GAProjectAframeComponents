@@ -66,8 +66,16 @@ AFRAME.registerComponent('fullpreset', {
   thetaLength: {type:"number", default:"180"},
   radius: {type:"number", default:"200"},
   shader: {default:"flat"},
-  color: {type:"color",default:'#ff00ff'},
-  src: {type:"src",default:'Assets/panorama.jpg'} //#desert
+  color: {type:"color",default:'#ffffff'},
+  //src: {type:"src",default:'Assets/panorama.jpg'}
+  //src: {type:"src",default:'Assets/mission.jpg'}
+  //src: {type:"src",default:'Assets/voielactee360_2.jpg'}
+  //src: {type:"src",default:'Assets/pano_mission.jpg'}
+  src: {type:"src",default:'Assets/voielactee360.jpg'}
+  //src: {type:"src",default:'Assets/goatrock360_4.jpg'}
+  //src: {type:"src",default:'Assets/murals360.jpg'}
+  //src: {type:"src",default:'Assets/murals360_2.jpg'}
+  //src: {type:"src",default:'Assets/beach360_3.jpg'}
 },
   init: function () {
 

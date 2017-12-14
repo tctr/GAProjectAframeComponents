@@ -61,6 +61,14 @@ AFRAME.registerComponent('skypreset', {
       // },
 
 
+      //src: {type:"src",default:'Assets/mission.jpg'}
+      //src: {type:"src",default:'Assets/voielactee360_2.jpg'}
+      //src: {type:"src",default:'Assets/pano_mission.jpg'}
+      //src: {type:"src",default:'Assets/goatrock360_4.jpg'}
+      //src: {type:"src",default:'Assets/murals360.jpg'}
+      //src: {type:"src",default:'Assets/murals360_2.jpg'}
+      //src: {type:"src",default:'Assets/beach360_3.jpg'}
+
 AFRAME.registerComponent('fullpreset', {
   schema: {
   thetaLength: {type:"number", default:"180"},
@@ -68,28 +76,21 @@ AFRAME.registerComponent('fullpreset', {
   shader: {default:"flat"},
   color: {type:"color",default:'#ffffff'},
   //src: {type:"src",default:'Assets/panorama.jpg'}
-  //src: {type:"src",default:'Assets/mission.jpg'}
-  //src: {type:"src",default:'Assets/voielactee360_2.jpg'}
-  //src: {type:"src",default:'Assets/pano_mission.jpg'}
   src: {type:"src",default:'Assets/voielactee360.jpg'}
-  //src: {type:"src",default:'Assets/goatrock360_4.jpg'}
-  //src: {type:"src",default:'Assets/murals360.jpg'}
-  //src: {type:"src",default:'Assets/murals360_2.jpg'}
-  //src: {type:"src",default:'Assets/beach360_3.jpg'}
 },
   init: function () {
+    this.bgpresets = [
+                      { thetaLength: 120, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
+                      { thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/voielactee360.jpg'}
+                     ];
 
-    //this.selBackgroundPreset = backgroundPreset1;
-
-    //this.material = this.el.getOrCreateObject3D('mesh').material;
-    //this.geometry = this.el.getOrCreateObject3D('mesh').geometry;
-    // console.log(this.geometry );
+    var ichoice = 0;
 
     this.sky2El = this.el.sceneEl.querySelector('#sky2');
-    this.sky2El.setAttribute('theta-length', this.data.thetaLength );
-    this.sky2El.setAttribute('material', 'color', this.data.color);
-    this.sky2El.setAttribute('src', this.data.src);
-    this.sky2El.setAttribute('radius', this.data.radius);
+    this.sky2El.setAttribute('theta-length', this.bgpresets[ichoice].thetaLength );
+    this.sky2El.setAttribute('radius', this.bgpresets[ichoice].radius);
+    this.sky2El.setAttribute('material', 'color', this.bgpresets[ichoice].color);
+    this.sky2El.setAttribute('src', this.bgpresets[ichoice].src);
   }
 
   // tick: function() {

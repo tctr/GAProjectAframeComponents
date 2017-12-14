@@ -34,18 +34,6 @@ AFRAME.registerComponent('skypreset', {
 // POSTION : HIGH in the sky
 // ROTATION : around all axes
 
-// backgroundPresets = [
-//                       {sky2: {
-//                         thetaLength: {type:"number", default:180},
-//                         rotation{type: {type:"vec3", default:}:""; shader:'flat'; color:ffffff; }
-//                     }
-//                     ];
-
-
-      // this.element.setAttribute('geometry', `primitive: plane; width: ${this.elementRadius}; height: ${this.elementRadius};` );
-      // this.element.setAttribute('material', `side: double;shader:sprite-mix;uTex:#smoke-image;transparent:true;opacity:.1;`);
-      // this.element.setAttribute('material', `color:${this.data.color};transparent:true; opacity:1;`);
-
 
       // let v1 = new THREE.Vector3(-this.data.direction.x, -this.data.direction.y, -this.data.direction.z );
       // let v2 = this.el.object3D.position;
@@ -71,20 +59,21 @@ AFRAME.registerComponent('skypreset', {
 
 AFRAME.registerComponent('fullpreset', {
   schema: {
-  thetaLength: {type:"number", default:"180"},
-  radius: {type:"number", default:"200"},
-  shader: {default:"flat"},
-  color: {type:"color",default:'#ffffff'},
-  //src: {type:"src",default:'Assets/panorama.jpg'}
-  src: {type:"src",default:'Assets/voielactee360.jpg'}
+    ichoice: {type:"number", default:"0"}
+  // thetaLength: {type:"number", default:"180"},
+  // radius: {type:"number", default:"200"},
+  // shader: {default:"flat"},
+  // color: {type:"color",default:'#ffffff'},
+  // src: {type:"src",default:'Assets/voielactee360.jpg'}
 },
   init: function () {
     this.bgpresets = [
-                      { thetaLength: 120, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
+                      { thetaLength: 180, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
+                      { thetaLength: 160, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
                       { thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/voielactee360.jpg'}
                      ];
 
-    var ichoice = 0;
+    var ichoice = this.data.ichoice;;
 
     this.sky2El = this.el.sceneEl.querySelector('#sky2');
     this.sky2El.setAttribute('theta-length', this.bgpresets[ichoice].thetaLength );

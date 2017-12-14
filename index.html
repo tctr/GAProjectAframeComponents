@@ -12,7 +12,7 @@
   </head>
 
   <body class="a-body ">
-    <a-scene fullpreset="ichoice:0"  antialiasing="" class="fullscreen" fog="color:#3335a1;density:0;far:3000" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
+    <a-scene fullpreset="ichoice:3"  antialiasing="" class="fullscreen" fog="color:#3335a1;density:0;far:3000" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
 
 
               <img id="mission" src="/Assets/pano_mission.jpg">
@@ -50,7 +50,7 @@
 
       <a-entity>
 
-        <a-entity camera="fov:150;userHeight:1" position="0 2 -3" rotation="30.963060167169807 552.7663415121207 0" look-controls="" data-aframe-inspector-original-camera=""></a-entity>
+        <a-entity id="camera" camera="userHeight:1" position="0 2 -3" rotation="30.963060167169807 552.7663415121207 0" look-controls="" data-aframe-inspector-original-camera=""></a-entity>
 
         <!-- <a-animation attribute="rotation" dur="3000" to="360 0 0" repeat="indefinite" easing="linear"></a-animation>
 
@@ -61,7 +61,7 @@
 
       </a-entity>
 
-      <a-sky radius="200" theta-length="180" material="shader:gradientshader;npot:false;topColor:#ffffff;bottomColor:#ffffff" geometry=""></a-sky>
+      <a-sky id="sky1" radius="200"  theta-length="180" material="shader:gradientshader;npot:false;topColor:#ffffff;bottomColor:#ffffff" geometry=""></a-sky>
 
       <a-sky id="sky2" ></a-sky>
 

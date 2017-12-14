@@ -67,13 +67,24 @@ AFRAME.registerComponent('fullpreset', {
   // src: {type:"src",default:'Assets/voielactee360.jpg'}
 },
   init: function () {
-    this.bgpresets = [
-                      { thetaLength: 180, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
-                      { thetaLength: 160, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
-                      { thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/voielactee360.jpg'}
-                     ];
+    this.bgpresets = [ // default desert
+                       { camfov:150, sky1radius:200, sky1color:'#00ff00', thetaLength: 180, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
+                       // desert with theta=160
+                       { camfov:150, sky1radius:200, sky1color:'#ffffff', thetaLength: 160, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
+                       // voie lactee
+                       { camfov:150, sky1radius:200, sky1color:'#ffffff', thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/voielactee360.jpg'},
+                       // voie mosaic trees
+                       { camfov:120, sky1radius:201, sky1color:'#00ff00', thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/sequoiatrip2.png'}
+];
 
     var ichoice = this.data.ichoice;;
+
+    this.sky1El = this.el.sceneEl.querySelector('#sky1');
+    this.sky1El.setAttribute('radius', this.bgpresets[ichoice].sky1radius);
+    this.sky1El.setAttribute('material', 'color', this.bgpresets[ichoice].sky1color);
+
+    this.camEl = this.el.sceneEl.querySelector('#camera');
+    this.camEl.setAttribute('camera', 'fov', this.bgpresets[ichoice].camfov);
 
     this.sky2El = this.el.sceneEl.querySelector('#sky2');
     this.sky2El.setAttribute('theta-length', this.bgpresets[ichoice].thetaLength );

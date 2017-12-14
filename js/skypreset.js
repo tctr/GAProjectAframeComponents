@@ -66,8 +66,8 @@ AFRAME.registerComponent('fullpreset', {
   thetaLength: {type:"number", default:"180"},
   radius: {type:"number", default:"200"},
   shader: {default:"flat"},
-  color: {type:"color",default:'red'},
-  src: {type:"src",default:"#desert"} //#desert
+  color: {type:"color",default:'#ff00ff'},
+  src: {type:"src",default:'Assets/panorama.jpg'} //#desert
 },
   init: function () {
 
@@ -76,10 +76,11 @@ AFRAME.registerComponent('fullpreset', {
     //this.material = this.el.getOrCreateObject3D('mesh').material;
     //this.geometry = this.el.getOrCreateObject3D('mesh').geometry;
     // console.log(this.geometry );
+
     this.sky2El = this.el.sceneEl.querySelector('#sky2');
     this.sky2El.setAttribute('theta-length', this.data.thetaLength );
-    this.sky2El.setAttribute('material', 'color', 'magenta');
-    this.sky2El.setAttribute('src', "#desert");
+    this.sky2El.setAttribute('material', 'color', this.data.color);
+    this.sky2El.setAttribute('src', this.data.src);
     this.sky2El.setAttribute('radius', this.data.radius);
   }
 

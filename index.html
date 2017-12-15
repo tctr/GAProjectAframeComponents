@@ -6,26 +6,21 @@
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
 
       <script src="js/rainbow.js" type="text/javascript"> </script>
-
       <script src="js/skypreset.js" type="text/javascript"> </script>
+
+      <script src="js/utils/bufferLoaderAlt.js"></script>
+      <script src="js/utils/noise.js"></script>
+      <script src="js/utils/beatingWaves.js"></script>
+
+      <script src="js/audio.js"></script>
 
   </head>
 
   <body class="a-body ">
-    <a-scene fullpreset="ichoice:3"  antialiasing="" class="fullscreen" fog="color:#3335a1;density:0;far:3000" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
+    <a-scene fullpreset="ichoice:3"  antialiasing="true" class="fullscreen" fog="color:#3335a1;density:0;far:3000" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
 
-
-              <img id="mission" src="/Assets/pano_mission.jpg">
-              <img id="desert" src="/Assets/panorama.jpg">
-
-              <a-cubemap id="sky-cubemap">
-                <img src="/Assets/cubemap/px.png">
-                <img src="/Assets/cubemap/nx.png">
-                <img src="/Assets/cubemap/py.png">
-                <img src="/Assets/cubemap/ny.png">
-                <img src="/Assets/cubemap/pz.png">
-                <img src="/Assets/cubemap/nz.png">
-              </a-cubemap>
+      <img id="mission" src="/Assets/pano_mission.jpg">
+      <img id="desert" src="/Assets/panorama.jpg">
 
 
       <a-entity>
@@ -36,7 +31,7 @@
 
         <a-entity geometry="primitive: torus;" position="-1 6 4" rotation="90 45 45" scale=".3 .3 .3" material="color: orange;"></a-entity>
 
-        <a-box  geometry="primitive: box;" src="Assets/lava.png;" color="red;" position="-10 10 -2" ></a-box>
+        <a-box  geometry="primitive: box;" color="red;" position="-10 10 -2" ></a-box>
 
 <!--
         <a-animation attribute="rotation" dur="12000" to="360 0 0" repeat="indefinite" easing="linear"></a-animation>

@@ -68,37 +68,60 @@ AFRAME.registerComponent('fullpreset', {
 },
   init: function () {
     this.bgpresets = [ // default desert
-                       { camfov:150, sky1radius:200, sky1color:'#00ff00', thetaLength: 180, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
+                       { camfov:150, sky1radius:200, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', changeTheta: false, thetaLength: 180, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
                        // desert with theta=160
-                       { camfov:150, sky1radius:200, sky1color:'#ffffff', thetaLength: 160, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
+                       { camfov:150, sky1radius:200, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', changeTheta: false, thetaLength: 160, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
                        // voie lactee
-                       { camfov:150, sky1radius:200, sky1color:'#ffffff', thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/voielactee360.jpg'},
+                       { camfov:150, sky1radius:200, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', changeTheta: false, changeTheta: true, thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/voielactee360.jpg'},
                        // voie mosaic trees
-                       { camfov:120, sky1radius:200.5, sky1color:'#00ff00', thetaLength: 178, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/sequoiatrip2.png'}
+                       { camfov:120, sky1radius:200.5, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', changeTheta: false, thetaLength: 178, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/sequoiatrip2.png'},
+                       // colors only
+                       { camfov:120, sky1radius:200., sky1topcolor:'#ffaa00', sky1bottomcolor:'#ee50ff', changeTheta: true, thetaLength: 179, radius: 200, shader: 'flat', color: '#0000ff', src: ''}
 ];
 
-    var ichoice = this.data.ichoice;;
+    this.ichoice = this.data.ichoice;
+
+    this.firstframe = true;
+
+    this.deltatheta = 0.1; this.changeThetaLengthMode = true;
 
     this.sky1El = this.el.sceneEl.querySelector('#sky1');
-    this.sky1El.setAttribute('radius', this.bgpresets[ichoice].sky1radius);
-    this.sky1El.setAttribute('material', 'color', this.bgpresets[ichoice].sky1color);
+    this.sky1El.setAttribute('radius', this.bgpresets[this.ichoice].sky1radius);
+    this.sky1El.setAttribute('material', 'topColor', this.bgpresets[this.ichoice].sky1topcolor);
+    this.sky1El.setAttribute('material', 'bottomColor', this.bgpresets[this.ichoice].sky1bottomcolor);
 
     this.camEl = this.el.sceneEl.querySelector('#camera');
-    this.camEl.setAttribute('camera', 'fov', this.bgpresets[ichoice].camfov);
+    this.camEl.setAttribute('camera', 'fov', this.bgpresets[this.ichoice].camfov);
 
     this.sky2El = this.el.sceneEl.querySelector('#sky2');
-    this.sky2El.setAttribute('theta-length', this.bgpresets[ichoice].thetaLength );
-    this.sky2El.setAttribute('radius', this.bgpresets[ichoice].radius);
-    this.sky2El.setAttribute('material', 'color', this.bgpresets[ichoice].color);
-    this.sky2El.setAttribute('src', this.bgpresets[ichoice].src);
-  }
+    this.sky2El.setAttribute('theta-length', this.bgpresets[this.ichoice].thetaLength );
+    this.sky2El.setAttribute('radius', this.bgpresets[this.ichoice].radius);
+    this.sky2El.setAttribute('material', 'color', this.bgpresets[this.ichoice].color);
+    this.sky2El.setAttribute('src', this.bgpresets[this.ichoice].src);
+  },
 
-  // tick: function() {
-  //   this.thetaLength -= this.data.cyclespeed;
-  //   if (this.thetaLength < 160) {
-  //     this.thetaLength = 180;
-  //   }
-  //   this.skyEl.setAttribute('theta-length', this.thetaLength );
-  //   console.log(this.thetaLength );
-  // }
+  tick: function() {
+    if (this.firstframe==true) {
+      this.firstframe = false;
+      this.thetaLength = this.bgpresets[this.ichoice].thetaLength;
+    }
+
+    if (this.bgpresets[this.ichoice].changeTheta==true) {
+      this.changeThetaLength();
+    }
+
+  },
+
+  changeThetaLength() {
+    if (this.thetaLength < 179) {
+      this.deltatheta = -0.001;
+    }
+    else if (this.thetaLength>180) {
+      this.deltatheta = 0.001;
+    }
+
+    this.thetaLength -= this.deltatheta;
+    this.sky2El.setAttribute('theta-length', this.thetaLength );
+    //console.log(this.thetaLength );
+  }
 });

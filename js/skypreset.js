@@ -80,24 +80,7 @@ AFRAME.registerComponent('fullpreset', {
 ];
 
     this.ichoice = this.data.ichoice;
-
-    this.firstframe = true;
-
-    this.deltatheta = 0.1; this.changeThetaLengthMode = true;
-
-    this.sky1El = this.el.sceneEl.querySelector('#sky1');
-    this.sky1El.setAttribute('radius', this.bgpresets[this.ichoice].sky1radius);
-    this.sky1El.setAttribute('material', 'topColor', this.bgpresets[this.ichoice].sky1topcolor);
-    this.sky1El.setAttribute('material', 'bottomColor', this.bgpresets[this.ichoice].sky1bottomcolor);
-
-    this.camEl = this.el.sceneEl.querySelector('#camera');
-    this.camEl.setAttribute('camera', 'fov', this.bgpresets[this.ichoice].camfov);
-
-    this.sky2El = this.el.sceneEl.querySelector('#sky2');
-    this.sky2El.setAttribute('theta-length', this.bgpresets[this.ichoice].thetaLength );
-    this.sky2El.setAttribute('radius', this.bgpresets[this.ichoice].radius);
-    this.sky2El.setAttribute('material', 'color', this.bgpresets[this.ichoice].color);
-    this.sky2El.setAttribute('src', this.bgpresets[this.ichoice].src);
+    this.initScene();
   },
 
   tick: function() {
@@ -106,10 +89,46 @@ AFRAME.registerComponent('fullpreset', {
       this.thetaLength = this.bgpresets[this.ichoice].thetaLength;
     }
 
+    var orientation = new THREE.Vector3();
+    //orientation = this.camEl.getAttribute('orientation');//worldPos.setFromMatrixPosition(this.camEl.object3D.matrixWorld);
+    if ( (-Math.PI/2-0.2) < this.camEl.object3D.rotation.x  && this.camEl.object3D.rotation.x< (-Math.PI/2+0.2) ) {
+      if (this.ichoice == 4) {
+        this.ichoice = 0;
+      }
+      else {
+        this.ichoice += 1;
+      }
+      this.initScene();
+      console.log(this.camEl.object3D.rotation);
+    }
+
+
     if (this.bgpresets[this.ichoice].changeTheta==true) {
       this.changeThetaLength();
     }
 
+  },
+
+  initScene(){
+
+      this.firstframe = true;
+
+      this.deltatheta = 0.1; this.changeThetaLengthMode = true;
+
+      this.sky1El = this.el.sceneEl.querySelector('#sky1');
+      this.sky1El.setAttribute('radius', this.bgpresets[this.ichoice].sky1radius);
+      this.sky1El.setAttribute('material', 'topColor', this.bgpresets[this.ichoice].sky1topcolor);
+      this.sky1El.setAttribute('material', 'bottomColor', this.bgpresets[this.ichoice].sky1bottomcolor);
+
+      this.camEl = this.el.sceneEl.querySelector('#camera');
+      this.camEl.setAttribute('camera', 'fov', this.bgpresets[this.ichoice].camfov);
+      //this.camEl.setAttribute('position', {x: 0, y:-100, z:0});
+
+      this.sky2El = this.el.sceneEl.querySelector('#sky2');
+      this.sky2El.setAttribute('theta-length', this.bgpresets[this.ichoice].thetaLength );
+      this.sky2El.setAttribute('radius', this.bgpresets[this.ichoice].radius);
+      this.sky2El.setAttribute('material', 'color', this.bgpresets[this.ichoice].color);
+      this.sky2El.setAttribute('src', this.bgpresets[this.ichoice].src);
   },
 
   changeThetaLength() {

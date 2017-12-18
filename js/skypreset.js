@@ -81,6 +81,8 @@ AFRAME.registerComponent('fullpreset', {
 
     this.ichoice = this.data.ichoice;
     this.initScene();
+    this.enterInitScene = false;
+    this.firstframe==true;
   },
 
   tick: function() {
@@ -89,9 +91,10 @@ AFRAME.registerComponent('fullpreset', {
       this.thetaLength = this.bgpresets[this.ichoice].thetaLength;
     }
 
+    // Logics for changing scenes
     var orientation = new THREE.Vector3();
-    //orientation = this.camEl.getAttribute('orientation');//worldPos.setFromMatrixPosition(this.camEl.object3D.matrixWorld);
     if ( (-Math.PI/2-0.2) < this.camEl.object3D.rotation.x  && this.camEl.object3D.rotation.x< (-Math.PI/2+0.2) ) {
+      this.enterInitScene = true;
       if (this.ichoice == 4) {
         this.ichoice = 0;
       }
@@ -99,10 +102,21 @@ AFRAME.registerComponent('fullpreset', {
         this.ichoice += 1;
       }
       this.initScene();
-      console.log(this.camEl.object3D.rotation);
+      //console.log(this.camEl.object3D.rotation);
+    }
+    else {
+      if (this.enterInitScene == true) {
+        if (musicplaying){
+          var source = audioContext.createBufferSource();
+          source.connect(audioContext.destination);
+          source.buffer = samples.isthatyou;
+          source.start(audioContext.currentTime + 0.100);
+        }
+        this.enterInitScene = false;
+      }
     }
 
-
+    // Call to function which increase and decrease thetaLength
     if (this.bgpresets[this.ichoice].changeTheta==true) {
       this.changeThetaLength();
     }

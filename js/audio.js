@@ -30,18 +30,6 @@ document.addEventListener('click',function(){
     }
     audiosetup();
   }
-  else {
-    beatingsineWA1.playmodulate(0.1,3);
-    beatingsineWA2.playmodulate(0.1,3);
-    whiteNoise.playNoise(0.3);
-
-    var source = audioContext.createBufferSource();
-    source.connect(audioContext.destination);
-    source.buffer = samples.isthatyou;
-    source.start(audioContext.currentTime + 0.100);
-
-    musicplaying = true;
-  }
 });
 
 document.addEventListener('touchend',function(){
@@ -148,6 +136,18 @@ function audiosetup() {
   panNode.connect(filter);
 
   masterGain.connect(audioContext.destination);
+
+
+    beatingsineWA1.playmodulate(0.1,3);
+    beatingsineWA2.playmodulate(0.1,3);
+    whiteNoise.playNoise(0.3);
+
+    var source = audioContext.createBufferSource();
+    source.connect(audioContext.destination);
+    source.buffer = samples.isthatyou;
+    source.start(audioContext.currentTime + 0.100);
+
+    musicplaying = true;
 
 }
 

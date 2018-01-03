@@ -1,7 +1,5 @@
-
-var webAudioStarted = false;
-
 //sound variables
+var webAudioStarted = false;
 var audioContext;
 var masterGain;
 var musicplaying = false;
@@ -73,7 +71,6 @@ document.addEventListener('mousemove',function(e){
 });
 
 
-
 // // create a reverb
 // const reverb = new Reverb({
 // 	audioContext,
@@ -92,9 +89,9 @@ function audiosetup() {
 
   SoundSamples = function() {
     loadSounds(this, {
-    isthatyou: 'Assets/isthatyou.mp3'
-    //other: 'snare.wav',
-    //hihat: 'hihat.wav'
+    isthatyou: 'Assets/isthatyou.mp3',
+    // basicimpulse: 'Assets/7348__jovica__basic-impulse-wave-2-c1.wav',
+    electricimpulse: 'Assets/341966__robinhood76__06526-electric-impulse-on-wires.wav'
     });
   };
 
@@ -122,10 +119,18 @@ function audiosetup() {
 
   filter = audioContext.createBiquadFilter();
   filter.type = "lowpass";
-  filter.frequency.value = 10000;
+  filter.frequency.value = 1000;
   filter.Q.value = 20;
   //filter.connect(masterGain);
   filter.connect(masterGain);
+
+
+  filter2 = audioContext.createBiquadFilter();
+  filter2.type = "lowpass";
+  filter2.frequency.value = 3000;
+  filter2.Q.value = 2;
+  //filter.connect(masterGain);
+  filter2.connect(masterGain);
 
   // pinkNoise.output.connect(masterGain);
   // whiteNoise.output.connect(masterGain);
@@ -137,17 +142,16 @@ function audiosetup() {
 
   masterGain.connect(audioContext.destination);
 
+  beatingsineWA1.playmodulate(0.1,3);
+  beatingsineWA2.playmodulate(0.1,3);
+  whiteNoise.playNoise(0.3);
 
-    beatingsineWA1.playmodulate(0.1,3);
-    beatingsineWA2.playmodulate(0.1,3);
-    whiteNoise.playNoise(0.3);
+  var source = audioContext.createBufferSource();
+  source.connect(audioContext.destination);
+  source.buffer = samples.isthatyou;
+  source.start(audioContext.currentTime + 0.100);
 
-    var source = audioContext.createBufferSource();
-    source.connect(audioContext.destination);
-    source.buffer = samples.isthatyou;
-    source.start(audioContext.currentTime + 0.100);
-
-    musicplaying = true;
+  musicplaying = true;
 
 }
 

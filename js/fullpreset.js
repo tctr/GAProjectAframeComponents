@@ -1,6 +1,7 @@
 AFRAME.registerComponent('fullpreset', {
   schema: {
-    ichoice: {type:"number", default:"0"}
+    ichoice: {type:"number", default:"0"},
+    leaphere: {type:"number", default:"0"}
   // thetaLength: {type:"number", default:"180"},
   // radius: {type:"number", default:"200"},
   // shader: {default:"flat"},
@@ -24,7 +25,8 @@ AFRAME.registerComponent('fullpreset', {
     this.initScene();
     this.enterInitScene = false;
     this.firstframe==true;
-    angleX = 0; angleXfiltered = angleX;
+    angleX = 0; angleXleap = 0; angleXleapFiltered = angleXleap;
+    angleXmouse = 0; angleXmouseFiltered = 0;
     panningValue = 0.;
   },
 
@@ -34,11 +36,19 @@ AFRAME.registerComponent('fullpreset', {
       this.thetaLength = this.bgpresets[this.ichoice].thetaLength;
     }
 
-    this.camEl.object3D.rotation.x = angleXfiltered;
+    if (leaphere==1) {
+      angleX = angleXleapFiltered;
+    }
+    else {
+      angleX = angleXmouseFiltered;
+      //let val=angleXmouse*180/Math.PI; console.log(val);
+    }
+
+    this.camEl.object3D.rotation.x = angleX;
     this.camEl.object3D.rotation.y += -0.005;
 
     if(musicplaying) {
-      filter.frequency.value = angleXfiltered/(Math.PI/2) * (1000-500)/2 + 500;
+      filter.frequency.value = angleX/(Math.PI/2) * (1000-500)/2 + 500;
       // console.log(filter.frequency.value);
 
       if (  this.camEl.object3D.rotation.x > Math.PI/2-0.2) {
@@ -49,9 +59,6 @@ AFRAME.registerComponent('fullpreset', {
         panNode.pan.value = 0;
       }
     }
-
-    //filter.frequency.value = (1000-500)*e.pageY/window.innerHeight + 500;
-    //  filter.Q.value = (20-10)*e.pageX/window.innerWidth+10;
 
     // Logics for changing scenes
     var orientation = new THREE.Vector3();

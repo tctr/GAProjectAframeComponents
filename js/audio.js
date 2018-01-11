@@ -15,6 +15,8 @@ var panNode;
 var SoundSamples;
 var samples;
 
+var mobiledevice = 0;
+
 document.addEventListener('click',function(){
   if(!webAudioStarted) {
     webAudioStarted=true;
@@ -31,6 +33,9 @@ document.addEventListener('click',function(){
 });
 
 document.addEventListener('touchend',function(){
+
+  mobiledevice = 1;
+
   if(!webAudioStarted) {
     webAudioStarted=true;
 
@@ -46,14 +51,14 @@ document.addEventListener('touchend',function(){
   else {
     beatingsineWA1.playmodulate(0.1,3);
     beatingsineWA2.playmodulate(0.1,3);
-    whiteNoise.playNoise(0.3);
+    pinkNoise.playNoise(0.7);
+    whiteNoise.playNoise(0.7);
 
     var source = audioContext.createBufferSource();
     source.connect(audioContext.destination);
     source.buffer = samples.isthatyou;
     source.start(audioContext.currentTime + 0.100);
 
-    musicplaying = true;
   }
 });
 

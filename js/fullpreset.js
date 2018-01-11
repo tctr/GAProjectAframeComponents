@@ -44,19 +44,29 @@ AFRAME.registerComponent('fullpreset', {
       //let val=angleXmouse*180/Math.PI; console.log(val);
     }
 
-    this.camEl.object3D.rotation.x = angleX;
+    if (mobiledevice==0) {
+      this.camEl.object3D.rotation.x = angleX;
+      //
+    }
     this.camEl.object3D.rotation.y += -0.005;
 
     if(musicplaying) {
-      filter.frequency.value = angleX/(Math.PI/2) * (1000-500)/2 + 500;
-      // console.log(filter.frequency.value);
+      if (mobiledevice==0) {
+        filter.frequency.value = angleX/(Math.PI/2) * (1000-500)/2 + 500;
+        // console.log(filter.frequency.value);
 
-      if (  this.camEl.object3D.rotation.x > Math.PI/2-0.2) {
-        panNode.pan.value = Math.sin(time/1000*Math.PI*30);
-        // console.log(time);
-      }
-      else {
-        panNode.pan.value = 0;
+        if (  this.camEl.object3D.rotation.x > Math.PI/2-0.2) {
+          panNode.pan.value = Math.sin(time/1000*Math.PI*30);
+          // console.log(time);
+        }
+        else {
+            angleX = this.camEl.object3D.rotation.x;
+            angleX = Math.max(angleX,0);//-Math.PI/2);
+            angleX = Math.min(angleX,Math.PI/2);
+            filter.frequency.value = angleX / (Math.PI/2) * (1000-500)/2 + 500;
+            // console.log(filter.frequency.value);
+          panNode.pan.value = 0;
+        }
       }
     }
 

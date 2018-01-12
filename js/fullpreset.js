@@ -1,7 +1,7 @@
 AFRAME.registerComponent('fullpreset', {
   schema: {
     ichoice: {type:"number", default:"0"},
-    leaphere: {type:"number", default:"0"}
+    hueChange: {type:"number", default:"0.001"}
   // thetaLength: {type:"number", default:"180"},
   // radius: {type:"number", default:"200"},
   // shader: {default:"flat"},
@@ -10,21 +10,22 @@ AFRAME.registerComponent('fullpreset', {
 },
   init: function () {
     this.bgpresets = [ // default desert
-                       { camfov:150, sky1radius:200.1, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', changeTheta: false, thetaLength: 180, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
+                       { camfov:150, sky1radius:200.1, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', rainbow:0, changeTheta: false, thetaLength: 180, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
                        // desert with theta=160
-                       { camfov:150, sky1radius:200, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', changeTheta: false, thetaLength: 160, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
+                       { camfov:150, sky1radius:200, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', rainbow:0, changeTheta: false, thetaLength: 160, radius: 200, shader: 'flat', color: '#ff00ff', src: 'Assets/panorama.jpg'},
                        // voie lactee
-                       { camfov:150, sky1radius:200.05, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', changeTheta: false, changeTheta: true, thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/voielactee360.jpg'},
+                       { camfov:150, sky1radius:200.05, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', rainbow:0, changeTheta: false, changeTheta: true, thetaLength: 180, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/voielactee360.jpg'},
                        // voie mosaic trees
-                       { camfov:120, sky1radius:200.5, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', changeTheta: false, thetaLength: 178, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/sequoiatrip2.png'},
+                       { camfov:120, sky1radius:200.5, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', rainbow:0, changeTheta: false, thetaLength: 178, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/sequoiatrip2.png'},
                        // colors only
-                       { camfov:150, sky1radius:200., sky1topcolor:'#ffffff', sky1bottomcolor:'#ee50ff', changeTheta: true, thetaLength: 179.5, radius: 200, shader: 'flat', color: '#0000ff', src: ''}
+                       { camfov:150, sky1radius:200., sky1topcolor:'#eeeeee', sky1bottomcolor:'#ee50ff', rainbow:1, changeTheta: true, thetaLength: 179.5, radius: 200, shader: 'flat', color: '#0000ff', src: ''}
 ];
 
     this.ichoice = this.data.ichoice;
     this.initScene();
     this.enterInitScene = false;
     this.firstframe==true;
+    this.hue = 0;
     angleX = 0; angleXleap = 0; angleXleapFiltered = angleXleap;
     angleXmouse = 0; angleXmouseFiltered = 0;
     panningValue = 0.;
@@ -93,6 +94,13 @@ AFRAME.registerComponent('fullpreset', {
         }
         this.enterInitScene = false;
       }
+    }
+
+    // if rainbow then change color of sky2
+    if ( this.bgpresets[this.ichoice].rainbow==1) {
+      this.hue += this.data.hueChange;
+      this.sky2Elmaterial = this.sky2El.getOrCreateObject3D('mesh').material;
+      this.sky2Elmaterial.color.setHSL(this.hue % 1, 1, .5);
     }
 
     // Call to function which increase and decrease thetaLength

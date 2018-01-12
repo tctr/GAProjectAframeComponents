@@ -18,7 +18,7 @@ AFRAME.registerComponent('fullpreset', {
                        // voie mosaic trees
                        { camfov:120, sky1radius:200.5, sky1topcolor:'#ffffff', sky1bottomcolor:'#ffffff', changeTheta: false, thetaLength: 178, radius: 200, shader: 'flat', color: '#ffffff', src: 'Assets/sequoiatrip2.png'},
                        // colors only
-                       { camfov:120, sky1radius:200., sky1topcolor:'#ffaa00', sky1bottomcolor:'#ee50ff', changeTheta: true, thetaLength: 179, radius: 200, shader: 'flat', color: '#0000ff', src: ''}
+                       { camfov:150, sky1radius:200., sky1topcolor:'#ffffff', sky1bottomcolor:'#ee50ff', changeTheta: true, thetaLength: 179.5, radius: 200, shader: 'flat', color: '#0000ff', src: ''}
 ];
 
     this.ichoice = this.data.ichoice;
@@ -59,14 +59,14 @@ AFRAME.registerComponent('fullpreset', {
           panNode.pan.value = Math.sin(time/1000*Math.PI*30);
           // console.log(time);
         }
-        else {
-            angleX = this.camEl.object3D.rotation.x;
-            angleX = Math.max(angleX,0);//-Math.PI/2);
-            angleX = Math.min(angleX,Math.PI/2);
-            filter.frequency.value = angleX / (Math.PI/2) * (1000-500)/2 + 500;
-            // console.log(filter.frequency.value);
-          panNode.pan.value = 0;
-        }
+      }
+      else {
+        angleX = this.camEl.object3D.rotation.x;
+        angleX = Math.max(angleX,0);//-Math.PI/2);
+        angleX = Math.min(angleX,Math.PI/2);
+        filter.frequency.value = angleX / (Math.PI/2) * (1000-500)/2 + 500;
+        // console.log(filter.frequency.value);
+        panNode.pan.value = 0;
       }
     }
 
